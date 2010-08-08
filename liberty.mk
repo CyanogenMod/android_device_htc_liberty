@@ -24,25 +24,27 @@ TARGET_PREBUILT_KERNEL := device/htc/liberty/kernel
 endif # TARGET_KERNEL_CONFIG
 endif # TARGET_PREBUILT_KERNEL
 
-# The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+DEVICE_PACKAGE_OVERLAYS := device/htc/liberty/overlay
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
+
+# Keylayouts
+PRODUCT_COPY_FILES += \
+    device/htc/liberty/liberty-keypad.kl:system/usr/keylayout/liberty-keypad.kl \
+    device/htc/liberty/liberty-keypad.kcm.bin:system/usr/keychars/liberty-keypad.kcm.bin \
+    device/htc/liberty/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl
 
 PRODUCT_COPY_FILES += \
     device/htc/liberty/init.liberty.rc:root/init.liberty.rc
 
-## (2) Also get non-open-source GSM-specific aspects if available
-$(call inherit-product-if-exists, vendor/htc/liberty/liberty-vendor.mk)
-
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libhtc_ril.so \
-    ro.ril.gprsclass = 12 \
     ro.ril.enable.dtm=0 \
     ro.ril.hsdpa.category=8 \
     ro.ril.hsupa.category=5 \
-    ro.ril.hsxpa=2 \
     ro.ril.disable.fd.plmn.prefix=23402,23410,23411 \
+    wifi.interface = eth0 \
+    wifi.supplicant_scan_interval=15 \
     ro.sf.lcd_density = 160
 
 # Default network type.
@@ -50,7 +52,33 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=0
 
-DEVICE_PACKAGE_OVERLAYS += device/htc/liberty/overlay
+# For emmc phone storage
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.phone_storage = 0 
+
+
+# This is a 512MB device, so 32mb heapsize
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.heapsize=32m
+
+## (1) First, the most specific values, i.e. the aspects that are specific to GSM
+
+## (2) Also get non-open-source GSM-specific aspects if available
+$(call inherit-product-if-exists, vendor/htc/liberty/liberty-vendor.mk)
+
+## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
+PRODUCT_PROPERTY_OVERRIDES += \
+    settings.display.autobacklight=1 \
+    settings.display.brightness=143 \
+    persist.service.mount.playsnd = 0 \
+    ro.com.google.locationfeatures = 1 \
+    ro.setupwizard.mode=OPTIONAL \
+    ro.setupwizard.enable_bypass=1 \
+    ro.media.dec.aud.wma.enabled=1 \
+    ro.media.dec.vid.wmv.enabled=1 \
+    dalvik.vm.dexopt-flags=m=y \
+    net.bt.name=Android \
+    ro.config.sync=yes
 
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
@@ -71,22 +99,6 @@ PRODUCT_PACKAGES += \
     sensors.liberty \
     lights.liberty
 
-# Keylayouts
-PRODUCT_COPY_FILES += \
-    device/htc/liberty/liberty-keypad.kl:system/usr/keylayout/liberty-keypad.kl \
-    device/htc/liberty/liberty-keypad.kcm.bin:system/usr/keychars/liberty-keypad.kcm.bin \
-    device/htc/liberty/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl
-
-# Firmware
-PRODUCT_COPY_FILES += \
-    device/htc/liberty/firmware/bcm4329.hcd:system/etc/firmware/bcm4329.hcd \
-    device/htc/liberty/firmware/fw_bcm4329.bin:system/etc/firmware/fw_bcm4329.bin \
-    device/htc/liberty/firmware/fw_bcm4329_apsta.bin:system/etc/firmware/fw_bcm4329_apsta.bin
-
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
-
 PRODUCT_COPY_FILES += \
     device/htc/liberty/vold.fstab:system/etc/vold.fstab \
     device/htc/liberty/apns-conf.xml:system/etc/apns-conf.xml
@@ -94,7 +106,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/liberty/bcm4329.ko:system/lib/modules/bcm4329.ko 
 
-$(call inherit-product-if-exists, vendor/htc/liberty/liberty-vendor.mk)
+# Prebuilt Modules
+PRODUCT_COPY_FILES += \
+    device/htc/liberty/firmware/bcm4329.hcd:system/etc/firmware/bcm4329.hcd \
+    device/htc/liberty/firmware/fw_bcm4329.bin:system/etc/firmware/fw_bcm4329.bin \
+    device/htc/liberty/firmware/fw_bcm4329_apsta.bin:system/etc/firmware/fw_bcm4329_apsta.bin
 
 # media profiles and capabilities spec
 $(call inherit-product, device/htc/liberty/media_a1026.mk)

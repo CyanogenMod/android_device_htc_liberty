@@ -67,6 +67,8 @@ BOARD_EGL_CFG := device/htc/liberty/egl.cfg
 
 BOARD_USES_QCOM_LIBS := true
 
+BOARD_USES_ECLAIR_LIBCAMERA := true
+
 BOARD_USE_HTC_USB_FUNCTION_SWITCH := true
 
 # # cat /proc/mtd (liberty)

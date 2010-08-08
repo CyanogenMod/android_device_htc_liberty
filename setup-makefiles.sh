@@ -72,7 +72,9 @@ EOF
 
 BOARD_GPS_LIBRARIES := libgps
 
-USE_CAMERA_STUB := true
+#USE_CAMERA_STUB := true
+USE_CAMERA_STUB := false
+
 EOF
 
 mkdir -p ../../../vendor/htc/$DEVICE/overlay/packages/apps/Launcher2/res/layout
