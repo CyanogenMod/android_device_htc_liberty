@@ -17,13 +17,6 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# Kernel Targets
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-ifeq ($(TARGET_KERNEL_CONFIG),)
-TARGET_PREBUILT_KERNEL := device/htc/liberty/kernel
-endif # TARGET_KERNEL_CONFIG
-endif # TARGET_PREBUILT_KERNEL
-
 DEVICE_PACKAGE_OVERLAYS := device/htc/liberty/overlay
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
@@ -111,6 +104,15 @@ PRODUCT_COPY_FILES += \
     device/htc/liberty/firmware/bcm4329.hcd:system/etc/firmware/bcm4329.hcd \
     device/htc/liberty/firmware/fw_bcm4329.bin:system/etc/firmware/fw_bcm4329.bin \
     device/htc/liberty/firmware/fw_bcm4329_apsta.bin:system/etc/firmware/fw_bcm4329_apsta.bin
+
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := device/htc/liberty/kernel
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
 
 # media profiles and capabilities spec
 $(call inherit-product, device/htc/liberty/media_a1026.mk)
