@@ -43,6 +43,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.hsdpa.category=8 \
     ro.ril.hsupa.category=5 \
     ro.ril.disable.fd.plmn.prefix=23402,23410,23411 \
+    ro.ril.def.agps.mode=1 \
     wifi.interface = eth0 \
     wifi.supplicant_scan_interval=15 \
     ro.sf.lcd_density = 160
@@ -101,8 +102,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     device/htc/liberty/vold.fstab:system/etc/vold.fstab \
-    device/htc/liberty/apns-conf.xml:system/etc/apns-conf.xml \
-    device/htc/liberty/gps.conf:system/etc/gps.conf
+    device/common/gps/gps.conf_US:system/etc/gps.conf
 
 PRODUCT_COPY_FILES += \
     device/htc/liberty/bcm4329.ko:system/lib/modules/bcm4329.ko 
