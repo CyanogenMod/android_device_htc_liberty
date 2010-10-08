@@ -105,7 +105,8 @@ PRODUCT_COPY_FILES += \
     device/common/gps/gps.conf_US:system/etc/gps.conf
 
 PRODUCT_COPY_FILES += \
-    device/htc/liberty/bcm4329.ko:system/lib/modules/bcm4329.ko 
+    device/htc/liberty/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/liberty/cifs.ko:system/lib/modules/cifs.ko
 
 # Prebuilt Modules
 PRODUCT_COPY_FILES += \
