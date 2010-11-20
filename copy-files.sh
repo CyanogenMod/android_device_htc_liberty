@@ -33,7 +33,6 @@ fi
 
 mkdir -p ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/bin/akmd ../../../vendor/htc/$DEVICE/proprietary
-cp $STAGESYS/bin/wifitools ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/etc/AudioFilter.csv ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/etc/AudioPara4.csv ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/etc/AudioPara4_WB.csv ../../../vendor/htc/$DEVICE/proprietary
@@ -45,7 +44,6 @@ cp $STAGESYS/etc/pvasflocal.cfg ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/lib/egl/libEGL_adreno200.so ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/lib/egl/libGLESv1_CM_adreno200.so ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/lib/egl/libGLESv2_adreno200.so ../../../vendor/htc/$DEVICE/proprietary
-cp $STAGESYS/lib/egl/libGLES_android.so ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/lib/libmm-adspsvc.so ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/lib/libOmxH264Dec.so ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/lib/libOmxMpeg4Dec.so ../../../vendor/htc/$DEVICE/proprietary
@@ -62,7 +60,6 @@ cp $STAGESYS/lib/libomx_wmvdec_sharedlibrary.so ../../../vendor/htc/$DEVICE/prop
 cp $STAGESYS/lib/libpvasfcommon.so ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/lib/libpvasflocalpb.so ../../../vendor/htc/$DEVICE/proprietary
 cp $STAGESYS/lib/libpvasflocalpbreg.so ../../../vendor/htc/$DEVICE/proprietary
-cp $STAGESYS/lib/libspeech.so ../../../vendor/htc/$DEVICE/proprietary
 
 chmod 755 ../../../vendor/htc/$DEVICE/proprietary/akmd
 
@@ -91,7 +88,6 @@ PRODUCT_COPY_FILES += \\
 # All the blobs necessary for passion
 PRODUCT_COPY_FILES += \\
     vendor/htc/__DEVICE__/proprietary/akmd:/system/bin/akmd \\
-    vendor/htc/__DEVICE__/proprietary/wifitools:/system/bin/wifitools \\
     vendor/htc/__DEVICE__/proprietary/AudioFilter.csv:/system/etc/AudioFilter.csv \\
     vendor/htc/__DEVICE__/proprietary/AudioPara4.csv:/system/etc/AudioPara4.csv \\
     vendor/htc/__DEVICE__/proprietary/AudioPara4_WB.csv:/system/etc/AudioPara4_WB.csv \\
@@ -103,7 +99,6 @@ PRODUCT_COPY_FILES += \\
     vendor/htc/__DEVICE__/proprietary/libEGL_adreno200.so:/system/lib/egl/libEGL_adreno200.so \\
     vendor/htc/__DEVICE__/proprietary/libGLESv1_CM_adreno200.so:/system/lib/egl/libGLESv1_CM_adreno200.so \\
     vendor/htc/__DEVICE__/proprietary/libGLESv2_adreno200.so:/system/lib/egl/libGLESv2_adreno200.so \\
-    vendor/htc/__DEVICE__/proprietary/libGLES_android.so:/system/lib/egl/libGLES_android.so \\
     vendor/htc/__DEVICE__/proprietary/libmm-adspsvc.so:/system/lib/libmm-adspsvc.so \\
     vendor/htc/__DEVICE__/proprietary/libOmxH264Dec.so:/system/lib/libOmxH264Dec.so \\
     vendor/htc/__DEVICE__/proprietary/libOmxMpeg4Dec.so:/system/lib/libOmxMpeg4Dec.so \\
@@ -119,8 +114,7 @@ PRODUCT_COPY_FILES += \\
     vendor/htc/__DEVICE__/proprietary/libomx_wmvdec_sharedlibrary.so:/system/lib/libomx_wmvdec_sharedlibrary.so \\
     vendor/htc/__DEVICE__/proprietary/libpvasfcommon.so:/system/lib/libpvasfcommon.so \\
     vendor/htc/__DEVICE__/proprietary/libpvasflocalpb.so:/system/lib/libpvasflocalpb.so \\
-    vendor/htc/__DEVICE__/proprietary/libpvasflocalpbreg.so:/system/lib/libpvasflocalpbreg.so \\
-    vendor/htc/__DEVICE__/proprietary/libspeech.so:/system/lib/libspeech.so 
+    vendor/htc/__DEVICE__/proprietary/libpvasflocalpbreg.so:/system/lib/libpvasflocalpbreg.so
 
 EOF
 
