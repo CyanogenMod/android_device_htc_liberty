@@ -37,6 +37,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/liberty/init.liberty.rc:root/init.liberty.rc
 
+PRODUCT_COPY_FILES += \
+    device/htc/liberty/prebuilt/gralloc.msm7k.so:/system/lib/hw/gralloc.msm7k.so
+
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libhtc_ril.so \
     ro.ril.enable.dtm=0 \
