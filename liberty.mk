@@ -17,28 +17,18 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# Kernel Targets
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-ifeq ($(TARGET_KERNEL_CONFIG),)
-TARGET_PREBUILT_KERNEL := device/htc/liberty/kernel
-endif # TARGET_KERNEL_CONFIG
-endif # TARGET_PREBUILT_KERNEL
-
 DEVICE_PACKAGE_OVERLAYS := device/htc/liberty/overlay
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    device/htc/liberty/liberty-keypad.kl:system/usr/keylayout/liberty-keypad.kl \
-    device/htc/liberty/liberty-keypad.kcm.bin:system/usr/keychars/liberty-keypad.kcm.bin \
-    device/htc/liberty/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl
+    device/htc/liberty/key/liberty-keypad.kl:system/usr/keylayout/liberty-keypad.kl \
+    device/htc/liberty/key/liberty-keypad.kcm.bin:system/usr/keychars/liberty-keypad.kcm.bin \
+    device/htc/liberty/key/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl
 
 PRODUCT_COPY_FILES += \
     device/htc/liberty/init.liberty.rc:root/init.liberty.rc
-
-PRODUCT_COPY_FILES += \
-    device/htc/liberty/prebuilt/gralloc.msm7k.so:/system/lib/hw/gralloc.msm7k.so
 
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libhtc_ril.so \
@@ -101,17 +91,35 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     librs_jni \
+    lights.liberty \
+    gralloc.msm7k \
+    libOmxCore.so \
+    copybit.msm7k \
     sensors.liberty \
-    lights.liberty
+    gps.liberty
 
 PRODUCT_COPY_FILES += \
     device/htc/liberty/vold.fstab:system/etc/vold.fstab \
-    device/common/gps/gps.conf_US:system/etc/gps.conf
+    device/common/gps/gps.conf_US:system/etc/gps.conf \
+    vendor/cyanogen/prebuilt/common/etc/apns-conf.xml:system/etc/apns-conf.xml
+
+# Kernel modules
+#PRODUCT_COPY_FILES += \
+
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := device/htc/liberty/prebuilt/kernel
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
 
 PRODUCT_COPY_FILES += \
-    device/htc/liberty/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/liberty/cifs.ko:system/lib/modules/cifs.ko \
-    device/htc/liberty/nls_utf8.ko:system/lib/modules/nls_utf8.ko
+    $(LOCAL_KERNEL):kernel
+
+
+PRODUCT_COPY_FILES += \
+    device/htc/liberty/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/liberty/prebuilt/cifs.ko:system/lib/modules/cifs.ko \
+    device/htc/liberty/prebuilt/nls_utf8.ko:system/lib/modules/nls_utf8.ko
 
 # Prebuilt Modules
 PRODUCT_COPY_FILES += \

@@ -24,6 +24,7 @@
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
 USE_CAMERA_STUB := true
+BOARD_USE_FROYO_LIBCAMERA := true
 
 # inherit from the proprietary version
 -include vendor/htc/liberty/BoardConfigVendor.mk
@@ -40,6 +41,8 @@ TARGET_CPU_ABI := armeabi-v6l
 TARGET_CPU_ABI2 := armeabi
 
 TARGET_BOOTLOADER_BOARD_NAME := liberty
+
+TARGET_PROVIDES_INIT_TARGET_RC := true
 
 # Wifi related defines
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
@@ -73,6 +76,12 @@ BOARD_USE_NEW_LIBRIL_HTC := true
 
 BOARD_USE_HTC_USB_FUNCTION_SWITCH := true
 
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+
+JS_ENGINE := jsc
+
+BOARD_NO_RGBX_8888 := true
+
 # # cat /proc/mtd (liberty)
 # dev:    size   erasesize  name
 # mtd0: 000a0000 00020000 "misc"
@@ -92,4 +101,5 @@ TARGET_RECOVERY_UI_LIB := librecovery_ui_liberty librecovery_ui_htc
 
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
-TARGET_PREBUILT_KERNEL := device/htc/liberty/kernel
+TARGET_PREBUILT_KERNEL := device/htc/liberty/prebuilt/kernel
+LOCAL_KERNEL := device/htc/liberty/prebuilt/kernel
