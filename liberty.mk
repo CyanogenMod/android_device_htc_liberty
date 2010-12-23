@@ -93,7 +93,7 @@ PRODUCT_PACKAGES += \
     librs_jni \
     lights.liberty \
     gralloc.msm7k \
-    libOmxCore.so \
+    libOmxCore \
     copybit.msm7k \
     sensors.liberty \
     gps.liberty
