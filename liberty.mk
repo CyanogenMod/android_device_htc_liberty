@@ -15,8 +15,6 @@
 #
 
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 DEVICE_PACKAGE_OVERLAYS := device/htc/liberty/overlay
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
@@ -133,7 +131,7 @@ $(call inherit-product, device/htc/liberty/media_a1026.mk)
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
 
-$(call inherit-product, build/target/product/full.mk)
+$(call inherit-product, build/target/product/full_base.mk)
 
 
 PRODUCT_NAME := generic_liberty
