@@ -79,6 +79,8 @@ BOARD_USE_NEW_LIBRIL_HTC := true
 
 BOARD_NO_RGBX_8888 := true
 
+BOARD_USES_GPSSHIM:=true
+
 # # cat /proc/mtd (liberty)
 # dev:    size   erasesize  name
 # mtd0: 000a0000 00020000 "misc"
