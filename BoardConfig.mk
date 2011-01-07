@@ -79,7 +79,9 @@ BOARD_USE_NEW_LIBRIL_HTC := true
 
 BOARD_NO_RGBX_8888 := true
 
-BOARD_USES_GPSSHIM:=true
+BOARD_USES_GPSSHIM:= true
+
+BOARD_GPS_LIBRARIES := libgps
 
 # # cat /proc/mtd (liberty)
 # dev:    size   erasesize  name
