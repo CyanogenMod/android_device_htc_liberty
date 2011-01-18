@@ -32,7 +32,7 @@ JS_ENGINE:=v8
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
-TARGET_NO_RECOVERY := true
+# TARGET_NO_RECOVERY := true
 
 TARGET_BOARD_PLATFORM := msm7k
 TARGET_ARCH_VARIANT := armv6-vfp
@@ -98,7 +98,7 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x0b920000
 
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-TARGET_RECOVERY_UI_LIB := librecovery_ui_liberty librecovery_ui_htc
+TARGET_RECOVERY_UI_LIB := librecovery_ui_liberty librecovery_ui_generic
 
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
