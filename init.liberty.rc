@@ -71,6 +71,11 @@ on init
     write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,5120,5632,6144
     write /sys/module/lowmemorykiller/parameters/check_filepages 1
 
+# performance tweaks for flash
+   write /sys/block/mtdblock3/bdi/read_ahead_kb 4
+   write /sys/block/mtdblock4/bdi/read_ahead_kb 4
+   write /sys/block/mtdblock5/bdi/read_ahead_kb 4
+
 service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
     -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
 #   we will start as root and wpa_supplicant will switch to user wifi
