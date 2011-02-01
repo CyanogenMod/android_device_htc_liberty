@@ -49,7 +49,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # For emmc phone storage
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.phone_storage = 0 
+    ro.phone_storage = 0
 
 
 # This is a 512MB device, so 32mb heapsize
@@ -104,7 +104,6 @@ PRODUCT_COPY_FILES += \
     vendor/cyanogen/prebuilt/common/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 # Kernel modules
-#PRODUCT_COPY_FILES += \
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/htc/liberty/prebuilt/kernel
@@ -115,12 +114,9 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-
-PRODUCT_COPY_FILES += \
-    device/htc/liberty/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko
-
 # Prebuilt Modules
 PRODUCT_COPY_FILES += \
+    device/htc/liberty/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
     device/htc/liberty/firmware/bcm4329.hcd:system/etc/firmware/bcm4329.hcd \
     device/htc/liberty/firmware/fw_bcm4329.bin:system/etc/firmware/fw_bcm4329.bin \
     device/htc/liberty/firmware/fw_bcm4329_apsta.bin:system/etc/firmware/fw_bcm4329_apsta.bin

@@ -24,6 +24,11 @@ on boot
     chown system system /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/auto
 
+    # performance tweaks for flash
+    write /sys/block/mtdblock3/bdi/read_ahead_kb 4
+    write /sys/block/mtdblock4/bdi/read_ahead_kb 4
+    write /sys/block/mtdblock5/bdi/read_ahead_kb 4
+
     # enable the GPS
     setprop ro.ril.def.agps.mode 1
     # GPRS class
@@ -70,11 +75,6 @@ on init
 # Enable low memory killer to check file pages
     write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,5120,5632,6144
     write /sys/module/lowmemorykiller/parameters/check_filepages 1
-
-# performance tweaks for flash
-   write /sys/block/mtdblock3/bdi/read_ahead_kb 4
-   write /sys/block/mtdblock4/bdi/read_ahead_kb 4
-   write /sys/block/mtdblock5/bdi/read_ahead_kb 4
 
 service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
     -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
