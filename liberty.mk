@@ -117,9 +117,7 @@ PRODUCT_COPY_FILES += \
 
 
 PRODUCT_COPY_FILES += \
-    device/htc/liberty/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/liberty/prebuilt/cifs.ko:system/lib/modules/cifs.ko \
-    device/htc/liberty/prebuilt/nls_utf8.ko:system/lib/modules/nls_utf8.ko
+    device/htc/liberty/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko
 
 # Prebuilt Modules
 PRODUCT_COPY_FILES += \
