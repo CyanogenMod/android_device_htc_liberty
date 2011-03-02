@@ -26,8 +26,6 @@ on boot
 
     # enable the GPS
     setprop ro.ril.def.agps.mode 1
-    # GPRS class
-    setprop ro.ril.gprsclass 10
 
 
 on init
