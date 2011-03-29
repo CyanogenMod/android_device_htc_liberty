@@ -38,7 +38,6 @@ adb pull /system/lib/libhtc_acoustic.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/libaudioeq.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/libhtc_ril.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/liboemcamera.so ../../../vendor/htc/$DEVICE/proprietary
-adb pull /system/lib/hw/gps.liberty.so ../../../vendor/htc/$DEVICE/proprietary
 
 chmod 755 ../../../vendor/htc/$DEVICE/proprietary/akmd
 
@@ -61,7 +60,6 @@ chmod 755 ../../../vendor/htc/$DEVICE/proprietary/akmd
 
 # Prebuilt libraries that are needed to build open-source libraries
 PRODUCT_COPY_FILES += \\
-    vendor/htc/__DEVICE__/proprietary/libgps.so:obj/lib/libgps.so \\
     vendor/htc/__DEVICE__/proprietary/libcamera.so:obj/lib/libcamera.so
  
 # All the blobs necessary for passion
@@ -86,8 +84,7 @@ PRODUCT_COPY_FILES += \\
     vendor/htc/__DEVICE__/proprietary/libhtc_acoustic.so:/system/lib/libhtc_acoustic.so \\
     vendor/htc/__DEVICE__/proprietary/libaudioeq.so:/system/lib/libaudioeq.so \\
     vendor/htc/__DEVICE__/proprietary/libhtc_ril.so:/system/lib/libhtc_ril.so \\
-    vendor/htc/__DEVICE__/proprietary/liboemcamera.so:/system/lib/liboemcamera.so \\
-    vendor/htc/__DEVICE__/proprietary/gps.liberty.so:/system/lib/hw/gps.liberty.so
+    vendor/htc/__DEVICE__/proprietary/liboemcamera.so:/system/lib/liboemcamera.so
 
 EOF
 
