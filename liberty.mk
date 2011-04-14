@@ -37,6 +37,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.def.agps.mode=1 \
     ro.ril.hsxpa=2 \
     ro.ril.gprsclass=12 \
+    mobiledata.interfaces=rmnet0,rmnet1,rmnet2,gprs,ppp0 \
     wifi.interface = eth0 \
     wifi.supplicant_scan_interval=15 \
     ro.sf.lcd_density = 160 \
