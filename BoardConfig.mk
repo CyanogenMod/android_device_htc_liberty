@@ -104,3 +104,5 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
 TARGET_PREBUILT_KERNEL := device/htc/liberty/prebuilt/kernel
 LOCAL_KERNEL := device/htc/liberty/prebuilt/kernel
+
+BOARD_USES_RECOVERY_CHARGEMODE := true
