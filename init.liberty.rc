@@ -24,9 +24,6 @@ on boot
     chown system system /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/auto
 
-    # enable the GPS
-    setprop ro.ril.def.agps.mode 1
-
 
 on init
     mount rootfs rootfs / remount
