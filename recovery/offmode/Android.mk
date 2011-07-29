@@ -2,7 +2,8 @@ ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),liberty)
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(BOARD_USES_RECOVERY_CHARGEMODE),true)
+#ifeq ($(BOARD_USES_RECOVERY_CHARGEMODE),true)
+ifneq ($(TARGET_RECOVERY_INITRC),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := choice_fn
 LOCAL_MODULE_TAGS := eng

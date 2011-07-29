@@ -105,5 +105,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
 TARGET_PREBUILT_KERNEL := device/htc/liberty/prebuilt/kernel
 LOCAL_KERNEL := device/htc/liberty/prebuilt/kernel
 
-TARGET_PREBUILT_RECOVERY_KERNEL := device/htc/liberty/prebuilt/recovery_kernel
-BOARD_USES_RECOVERY_CHARGEMODE := true
+#TARGET_PREBUILT_RECOVERY_KERNEL := device/htc/liberty/prebuilt/recovery_kernel
+#BOARD_USES_RECOVERY_CHARGEMODE := true
+TARGET_RECOVERY_INITRC := device/htc/liberty/init.recovery.rc
