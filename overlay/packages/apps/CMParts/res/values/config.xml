@@ -3,6 +3,6 @@
     <!-- Whether or not to display the trackball settings -->
     <bool name="has_trackball">true</bool>
 
-    <!-- Notification LED mixes up amber with green and red -->
-    <bool name="has_mixable_dual_notification_led">true</bool>
+    <!-- Notification LED can show green and amber only -->
+    <bool name="has_dual_notification_led">true</bool>
 </resources>
