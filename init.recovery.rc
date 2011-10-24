@@ -19,6 +19,8 @@ on init
     mkdir /cache
     mount /tmp /tmp tmpfs
 
+    write /sys/class/leds/button-backlight/brightness 200
+
 on boot
 
     ifup lo
@@ -34,7 +36,6 @@ service choice_fn /sbin/choice_fn
     oneshot
 
 service recovery /sbin/recovery
-    disabled
 
 service power_test /sbin/power_test
     disabled
@@ -45,7 +46,6 @@ service offmode_charging /sbin/offmode_charging
 service detect_key /sbin/detect_key
 
 service adbd /sbin/adbd recovery
-    disabled
 
 on property:persist.service.adb.enable=1
     start adbd
