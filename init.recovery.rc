@@ -19,6 +19,8 @@ on init
     mkdir /cache
     mount /tmp /tmp tmpfs
 
+    write /sys/class/leds/button-backlight/brightness 200
+
 on boot
 
     ifup lo
