@@ -14,10 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE=liberty
+DEVICE=pico
 
 mkdir -p ../../../vendor/htc/$DEVICE/proprietary
-adb pull /system/bin/akmd ../../../vendor/htc/$DEVICE/proprietary
+# adb pull /system/bin/akmd ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/bin/awb_camera ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/bin/bma150_usr ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/bin/htc_ebdlogd ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/bin/logcat2 ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/bin/lsc_camera ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/bin/snd8k ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/etc/AudioFilter.csv ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/etc/AudioPara4.csv ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/etc/AudioPara4_WB.csv ../../../vendor/htc/$DEVICE/proprietary
@@ -28,6 +34,7 @@ adb pull /system/etc/firmware/yamato_pm4.fw ../../../vendor/htc/$DEVICE/propriet
 adb pull /system/lib/egl/libEGL_adreno200.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/egl/libGLESv1_CM_adreno200.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/egl/libGLESv2_adreno200.so ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/lib/egl/libq3dtools_adreno200.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/libmm-adspsvc.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/libOmxH264Dec.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/libOmxMpeg4Dec.so ../../../vendor/htc/$DEVICE/proprietary
@@ -39,7 +46,7 @@ adb pull /system/lib/libaudioeq.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/libhtc_ril.so ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/lib/liboemcamera.so ../../../vendor/htc/$DEVICE/proprietary
 
-chmod 755 ../../../vendor/htc/$DEVICE/proprietary/akmd
+# chmod 755 ../../../vendor/htc/$DEVICE/proprietary/akmd
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g > ../../../vendor/htc/$DEVICE/$DEVICE-vendor-blobs.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -64,7 +71,7 @@ PRODUCT_COPY_FILES += \\
  
 # All the blobs necessary for passion
 PRODUCT_COPY_FILES += \\
-    vendor/htc/__DEVICE__/proprietary/akmd:/system/bin/akmd \\
+  # vendor/htc/__DEVICE__/proprietary/akmd:/system/bin/akmd \\
     vendor/htc/__DEVICE__/proprietary/AudioFilter.csv:/system/etc/AudioFilter.csv \\
     vendor/htc/__DEVICE__/proprietary/AudioPara4.csv:/system/etc/AudioPara4.csv \\
     vendor/htc/__DEVICE__/proprietary/AudioPara4_WB.csv:/system/etc/AudioPara4_WB.csv \\
@@ -75,6 +82,7 @@ PRODUCT_COPY_FILES += \\
     vendor/htc/__DEVICE__/proprietary/libEGL_adreno200.so:/system/lib/egl/libEGL_adreno200.so \\
     vendor/htc/__DEVICE__/proprietary/libGLESv1_CM_adreno200.so:/system/lib/egl/libGLESv1_CM_adreno200.so \\
     vendor/htc/__DEVICE__/proprietary/libGLESv2_adreno200.so:/system/lib/egl/libGLESv2_adreno200.so \\
+    vendor/htc/__DEVICE__/proprietary/libq3dtools_adreno200.so:/system/lib/egl/libq3dtools_adreno200.so \\
     vendor/htc/__DEVICE__/proprietary/libmm-adspsvc.so:/system/lib/libmm-adspsvc.so \\
     vendor/htc/__DEVICE__/proprietary/libOmxH264Dec.so:/system/lib/libOmxH264Dec.so \\
     vendor/htc/__DEVICE__/proprietary/libOmxMpeg4Dec.so:/system/lib/libOmxMpeg4Dec.so \\

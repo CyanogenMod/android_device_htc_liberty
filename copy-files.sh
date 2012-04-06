@@ -14,14 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE=liberty
-STAGESYS=~/cm6-$DEVICE/system
+DEVICE=pico
+STAGESYS=~/cm7-$DEVICE/system
 
 if [ "$1" = "pull" ]; then
   if [ -s "$STAGESYS" ]; then
-  rm -R ~/cm6-$DEVICE
+  rm -R ~/cm7-$DEVICE
   fi
- mkdir ~/cm6-$DEVICE
+ mkdir ~/cm7-$DEVICE
  mkdir $STAGESYS
  mkdir $STAGESYS/bin
  mkdir $STAGESYS/lib

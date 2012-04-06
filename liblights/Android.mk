@@ -14,11 +14,11 @@
 
 LOCAL_PATH:= $(call my-dir)
 
-ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),liberty)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),pico)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := lights.liberty
+LOCAL_MODULE := lights.pico
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 
