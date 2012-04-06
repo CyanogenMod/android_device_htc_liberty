@@ -1,23 +1,12 @@
-Device configuration for the HTC Liberty (aka HTC Aria/Gratia)
-
-Copyright (C) 2011 The CyanogenMod Project
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-------------------------------------------------------------------
-
+Device configuration for the HTC Pico (aka HTC Explorer)
 
 * Description
 
-  This repository is for CM7 on HTC liberty.
+  This repository is for CM7 on HTC Pico
   It is still a work in progress.
 
 
-* How To Build CM7 for HTC liberty
+* How To Build CM7 for HTC Pico
 
   Make a workspace
 
@@ -43,7 +32,7 @@ Copyright (C) 2011 The CyanogenMod Project
 
   Connect phone to usb abd make sure debugging is avaliable for adb pulls
 
-  $ cd ../../device/htc/liberty/
+  $ cd ../../device/htc/pico/
   $ ./extract-files.sh # this pulls files from working liberty with most variants of shipped HTC ROM
   $ cd ../../..
 
@@ -52,7 +41,7 @@ Copyright (C) 2011 The CyanogenMod Project
 
   $ source build/envsetup.sh
   $ lunch
-  (select cyanogen_liberty-eng)
+  (select cyanogen_pico-eng)
 
 
   Build CM7
@@ -69,6 +58,7 @@ Copyright (C) 2011 The CyanogenMod Project
   attn1
   jznomoney (who booted the first liberty on Gingerbread and contributes tons to this device)
   CyanogenMod team
+  sakindia123
 
 ----
 EOF

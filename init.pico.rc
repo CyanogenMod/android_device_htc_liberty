@@ -1,0 +1,213 @@
+on early-init
+    device mtd@misc 0460 radio diag
+
+on init
+    mkdir /devlog 0700 root root
+    mount yaffs2 mtd@devlog /devlog nosuid nodev
+    # double check the perms and set owner
+    chown root root /devlog
+    chmod 0700 /devlog
+
+    # [3LM] Secure container used for sharing libraries for encrypted apps
+    chmod 0771 /data/secure
+    mkdir /data/secure/data 0771 system system
+    mount tmpfs tmpfs /data/secure/data mode=0771,uid=1000,gid=1000
+
+on boot
+# unmap left alt to avoid console switch
+    setkey 0x0 0x38 0x0
+# device reset SEND+MENU+END
+    setkey 0x0 0xe7 0x706
+    setkey 0x0 0x8b 0x707
+
+    setkey 0x40 0xe7 0x706
+    setkey 0x40 0x8b 0x707
+
+    setkey 0x80 0xe7 0x706
+    setkey 0x80 0x8b 0x707
+
+    setkey 0xc0 0xe7 0x706
+    setkey 0xc0 0x8b 0x707
+    setkey 0xc0 0x6b 0x20c
+
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+    #TODO: remove these two once we switch kernel to rfkill interface
+    chown bluetooth bluetooth /sys/module/board_pico/parameters/bluetooth_power_on
+    chmod 0660 /sys/module/board_pico/parameters/bluetooth_power_on
+
+    # bluetooth power up/down interface
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/serial_lock_cpu
+    chmod 0660 /sys/devices/platform/msm_serial_hs.0/serial_lock_cpu
+
+    chown system system /sys/module/serial/parameters/modem_enabled
+    chown system system /dev/ttyHSUSB0
+    chown system system /dev/smd9
+
+    # set CABC permissions
+    chown system system /sys/class/leds/lcd-backlight/auto
+    chown radio radio /sys/module/pm/parameters/idle_sleep_mode
+
+	# for Flip to speaker 
+	chown radio radio /sys/class/htc_accelerometer/accelerometer/PhoneOnOffFlag
+	chown radio radio /sys/class/htc_ecompass/ecompass/PhoneOnOffFlag
+
+	# for Optical sensors
+	chown system system /sys/class/optical_sensors/lightsensor/ls_adc
+	chown system system /sys/class/optical_sensors/lightsensor/ls_auto
+	chown system system /sys/class/optical_sensors/lightsensor/ls_kadc
+	chown system radio /sys/class/optical_sensors/proximity/ps_adc
+	chown system system /sys/class/optical_sensors/proximity/ps_kadc
+	chown system system /sys/class/optical_sensors/proximity/ps_led
+	chown system system /sys/class/optical_sensors/proximity/ps_test_mode
+
+    # Load kineto_gan.ko while booting
+    insmod /system/lib/modules/kineto_gan.ko
+
+    # Enable low memory killer to check file pages
+    write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,5120,5632,6144
+    write /sys/module/lowmemorykiller/parameters/check_filepages 1
+
+    # for fonts move to data partition
+    mount yaffs2 mtd@system /system rw remount
+    chmod 0755 /data/fonts
+    symlink /data/fonts /system/fonts
+    mount yaffs2 mtd@system /system ro remount
+
+service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
+    -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
+    socket wpa_eth0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL eth0
+    disabled
+    oneshot
+
+# [3LM] device manager 3LM service
+service tund /system/bin/tund
+    socket tund stream 0660 vpn system
+    user vpn
+    group vpn net_admin net_raw
+    ioprio be 2
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    disabled
+    oneshot
+#TODO: Remove hciattach_legacy
+#service hciattach /system/bin/hciattach \
+#    -n -s 115200 /dev/ttyHS0 texas 4000000 flow
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
+
+#service hciattach_legacy /system/bin/hciattach \
+#    -n -s 115200 /dev/ttyMSM0 texas 115200 flow
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
+
+# Make sure we startup btld before hcid
+# Set target address to emulator host loopback IF
+# Limit baudrate to 460800 to ensure reliable uart operation 
+#service btld /system/bin/logwrapper /system/bin/btld -hwtun 10.0.2.2 -hb 460800 3000000 -lpm 1
+service btld /system/bin/logwrapper /system/bin/btld -lpm 1 -hb 3000000
+    user root
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+
+# bugreport is triggered by the KEY_VOLUMEUP and KEY_VOLUMEDOWN keycodes
+service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
+    disabled
+    oneshot
+    keycodes 115 114
+
+# for USB internet sharing
+service udhcpd /system/bin/udhcpd
+	disabled
+	oneshot
+
+service netsharing_on /system/bin/netsharing net on
+	disabled
+	oneshot
+
+service netsharing_off /system/bin/netsharing net off
+	disabled
+	oneshot
+
+service netsharing_pass /system/bin/netsharing net_pass on
+	disabled
+	oneshot
+
+service srv_ser2net /system/bin/ser2net -n
+    disabled
+
+on property:service.ser2net.enable=1
+    start srv_ser2net
+
+on property:service.ser2net.enable=0
+    stop srv_ser2net
+
+service modem /system/xbin/wireless_modem
+    user system
+    group system
+    disabled
+
+service zchgd_offmode /system/bin/zchgd -pseudooffmode                                                                        
+    user root
+    group root graphics
+    disabled
+
+service zchgd_onmode /system/bin/zchgd -onmode
+    user root
+    group root graphics
+    oneshot
+
+on property:service.modem.enable=1
+    start modem
+
+on property:service.modem.enable=0
+    stop modem
+
+service dmagent /system/bin/dmagent -N
+    socket dmagent stream 660 root radio
+    user root
+    group radio cache inet misc
+
+service clockd /system/bin/clockd
+
+service qb_offmode_alarm /system/bin/qb_offmode_alarm
+    user root
+    disabled
+    oneshot
+
+service htc_ebdlogd /system/bin/htc_ebdlogd -s -k -P 7
+    user root
+    disabled
+    oneshot
+    ioprio idle 0
+
+service htc_ebdlogd_rel /system/bin/htc_ebdlogd -s -k
+    user root
+    disabled
+    oneshot
+    ioprio idle 0
+
+on property:ro.build.tags=test-keys
+    start htc_ebdlogd
+
+on property:ro.build.tags=release-keys
+    start htc_ebdlogd_rel
+

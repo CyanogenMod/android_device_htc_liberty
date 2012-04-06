@@ -24,11 +24,10 @@
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
 USE_CAMERA_STUB := false
-BOARD_USE_FROYO_LIBCAMERA := true
 JS_ENGINE:=v8
 
 # inherit from the proprietary version
--include vendor/htc/liberty/BoardConfigVendor.mk
+-include vendor/htc/pico/BoardConfigVendor.mk
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
@@ -40,7 +39,7 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_CPU_ABI := armeabi-v6l
 TARGET_CPU_ABI2 := armeabi
 
-TARGET_BOOTLOADER_BOARD_NAME := liberty
+TARGET_BOOTLOADER_BOARD_NAME := pico
 
 TARGET_PROVIDES_INIT_TARGET_RC := true
 
@@ -71,7 +70,7 @@ BOARD_VENDOR_QCOM_AMSS_VERSION := 4735
 
 BOARD_VENDOR_USE_AKMD := akm8973
 
-BOARD_EGL_CFG := device/htc/liberty/egl.cfg
+BOARD_EGL_CFG := device/htc/pico/egl.cfg
 
 BOARD_USES_QCOM_LIBS := true
 
@@ -82,11 +81,11 @@ BOARD_USE_NEW_LIBRIL_HTC := true
 BOARD_NO_RGBX_8888 := true
 
 BOARD_USES_QCOM_GPS := true
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := liberty
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := pico
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 20000
 BOARD_USES_QCOM_LIBRPC := true
 
-# # cat /proc/mtd (liberty)
+# # cat /proc/mtd (pico)
 # dev:    size   erasesize  name
 # mtd0: 000a0000 00020000 "misc"
 # mtd1: 00420000 00020000 "recovery"
@@ -102,10 +101,10 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x0b920000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
-TARGET_PREBUILT_KERNEL := device/htc/liberty/prebuilt/kernel
-LOCAL_KERNEL := device/htc/liberty/prebuilt/kernel
+TARGET_PREBUILT_KERNEL := device/htc/pico/prebuilt/kernel
+LOCAL_KERNEL := device/htc/pico/prebuilt/kernel
 
-#TARGET_PREBUILT_RECOVERY_KERNEL := device/htc/liberty/prebuilt/recovery_kernel
+#TARGET_PREBUILT_RECOVERY_KERNEL := device/htc/pico/prebuilt/recovery_kernel
 #BOARD_USES_RECOVERY_CHARGEMODE := true
-TARGET_RECOVERY_INITRC := device/htc/liberty/init.recovery.rc
+TARGET_RECOVERY_INITRC := device/htc/pico/init.recovery.rc
 BOARD_HAS_NO_SELECT_BUTTON := true
